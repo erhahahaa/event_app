@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="dev.erhahahaa.eventapp.ui.fragment.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_active_events"
+        android:name="dev.erhahahaa.eventapp.ui.fragment.ActiveEventFragment"
+        android:label="Active Events"
+        tools:layout="@layout/fragment_event_list" />
+
+    <fragment
+        android:id="@+id/nav_finished_events"
+        android:name="dev.erhahahaa.eventapp.ui.fragment.FinishedEventFragment"
+        android:label="@string/finished_events"
+        tools:layout="@layout/fragment_event_list" />
+
+    <fragment
+        android:id="@+id/event_detail_fragment"
+        android:name="dev.erhahahaa.eventapp.ui.fragment.EventDetailFragment"
+        android:label="@string/event_detail"
+        tools:layout="@layout/fragment_event_detail">
+        <argument
+            android:name="eventId"
+            app:argType="integer" />
+    </fragment>
+
+</navigation>

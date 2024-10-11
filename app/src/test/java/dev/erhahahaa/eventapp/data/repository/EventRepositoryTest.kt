@@ -15,38 +15,44 @@ class EventRepositoryTest {
 
   private val apiService = mock(ApiService::class.java)
   private val repository = EventRepository(apiService)
-  private val event = Event(
-    id = 8933,
-    name = "DevCoach 172: Flutter | Tingkatkan Pengalaman Pengguna dengan Lokalisasi dan Aksesibilitas",
-    summary = "Acara ini sepenuhnya GRATIS dan akan diselenggarakan hari Jumat, 11 Oktober 2024 pukul 16.00 - 17.00 WIB Live di YouTube",
-    description = "super long html description",
-    imageLogo = "https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/event/dos-devcoach_172_flutter_tingkatkan_pengalaman_pengguna_dengan_lokalisasi_dan_aksesibilitas_logo_041024134406.png",
-    mediaCover = "https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/event/dos-devcoach_172_flutter_tingkatkan_pengalaman_pengguna_dengan_lokalisasi_dan_aksesibilitas_mc_041024134407.jpg",
-    category = "Seminar",
-    ownerName = "Dicoding Event",
-    cityName = "Online",
-    quota = 2000,
-    registrants = 452,
-    beginTime = "2024-10-11 16:00:00",
-    endTime = "2024-10-11 17:00:00",
-    link = "https://www.dicoding.com/events/8933"
-  )
+  private val event =
+    Event(
+      id = 8933,
+      name =
+        "DevCoach 172: Flutter | Tingkatkan Pengalaman Pengguna dengan Lokalisasi dan Aksesibilitas",
+      summary =
+        "Acara ini sepenuhnya GRATIS dan akan diselenggarakan hari Jumat, 11 Oktober 2024 pukul 16.00 - 17.00 WIB Live di YouTube",
+      description = "super long html description",
+      imageLogo =
+        "https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/event/dos-devcoach_172_flutter_tingkatkan_pengalaman_pengguna_dengan_lokalisasi_dan_aksesibilitas_logo_041024134406.png",
+      mediaCover =
+        "https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/event/dos-devcoach_172_flutter_tingkatkan_pengalaman_pengguna_dengan_lokalisasi_dan_aksesibilitas_mc_041024134407.jpg",
+      category = "Seminar",
+      ownerName = "Dicoding Event",
+      cityName = "Online",
+      quota = 2000,
+      registrants = 452,
+      beginTime = "2024-10-11 16:00:00",
+      endTime = "2024-10-11 17:00:00",
+      link = "https://www.dicoding.com/events/8933",
+    )
 
   @Test
   fun testGetAllEventsReturnsEvents() {
     val call = mock(Call::class.java) as Call<EventApiResponse<List<Event>>>
     `when`(apiService.getEvents(-1)).thenReturn(call)
-    val response = Response.success(
-      EventApiResponse(
-        error = false,
-        message = "Events fetched successfully",
-        listEvents = listOf(event)
+    val response =
+      Response.success(
+        EventApiResponse(
+          error = false,
+          message = "Events fetched successfully",
+          listEvents = listOf(event),
+        )
       )
-    )
 
     `when`(call.execute()).thenReturn(response)
 
-    val result = repository.getAllEvents().execute()
+    val result = repository.getAllEvents(EventStatus.ALL).execute()
     assertEquals(true, result.isSuccessful)
     assertEquals(true, result.body()?.listEvents?.isNotEmpty())
 
@@ -66,17 +72,18 @@ class EventRepositoryTest {
   fun testGetActiveEventsReturnsEvents() {
     val call = mock(Call::class.java) as Call<EventApiResponse<List<Event>>>
     `when`(apiService.getEvents(1)).thenReturn(call)
-    val response = Response.success(
-      EventApiResponse(
-        error = false,
-        message = "Events fetched successfully",
-        listEvents = listOf(event)
+    val response =
+      Response.success(
+        EventApiResponse(
+          error = false,
+          message = "Events fetched successfully",
+          listEvents = listOf(event),
+        )
       )
-    )
 
     `when`(call.execute()).thenReturn(response)
 
-    val result = repository.getActiveEvents().execute()
+    val result = repository.getAllEvents(EventStatus.ACTIVE).execute()
     assertEquals(true, result.isSuccessful)
     assertEquals(true, result.body()?.listEvents?.isNotEmpty())
 
@@ -96,17 +103,18 @@ class EventRepositoryTest {
   fun testGetFinishedEventsReturnsEvents() {
     val call = mock(Call::class.java) as Call<EventApiResponse<List<Event>>>
     `when`(apiService.getEvents(0)).thenReturn(call)
-    val response = Response.success(
-      EventApiResponse(
-        error = false,
-        message = "Events fetched successfully",
-        listEvents = listOf(event)
+    val response =
+      Response.success(
+        EventApiResponse(
+          error = false,
+          message = "Events fetched successfully",
+          listEvents = listOf(event),
+        )
       )
-    )
 
     `when`(call.execute()).thenReturn(response)
 
-    val result = repository.getFinishedEvents().execute()
+    val result = repository.getAllEvents(EventStatus.FINISHED).execute()
     assertEquals(true, result.isSuccessful)
     assertEquals(true, result.body()?.listEvents?.isNotEmpty())
 
@@ -126,13 +134,10 @@ class EventRepositoryTest {
   fun testGetEventDetailReturnsEvent() {
     val call = mock(Call::class.java) as Call<EventApiResponse<Event>>
     `when`(apiService.getEventDetail(event.id)).thenReturn(call)
-    val response = Response.success(
-      EventApiResponse(
-        error = false,
-        message = "Event fetched successfully",
-        event = event
+    val response =
+      Response.success(
+        EventApiResponse(error = false, message = "Event fetched successfully", event = event)
       )
-    )
 
     `when`(call.execute()).thenReturn(response)
 
@@ -157,13 +162,14 @@ class EventRepositoryTest {
     val call = mock(Call::class.java) as Call<EventApiResponse<List<Event>>>
     val query = "DevCoach"
     `when`(apiService.getEvents(-1, query)).thenReturn(call)
-    val response = Response.success(
-      EventApiResponse(
-        error = false,
-        message = "Events fetched successfully",
-        listEvents = listOf(event)
+    val response =
+      Response.success(
+        EventApiResponse(
+          error = false,
+          message = "Events fetched successfully",
+          listEvents = listOf(event),
+        )
       )
-    )
 
     `when`(call.execute()).thenReturn(response)
 
@@ -189,14 +195,11 @@ class EventRepositoryTest {
     `when`(apiService.getEvents(-1)).thenReturn(call)
 
     val errorResponseBody = ResponseBody.create(null, "")
-    val response = Response.error<EventApiResponse<List<Event>>>(
-      404,
-      errorResponseBody
-    )
+    val response = Response.error<EventApiResponse<List<Event>>>(404, errorResponseBody)
 
     `when`(call.execute()).thenReturn(response)
 
-    val result = repository.getAllEvents().execute()
+    val result = repository.getAllEvents(EventStatus.ALL).execute()
 
     assertEquals(false, result.isSuccessful)
     assertEquals("", result.errorBody()?.string())
@@ -208,10 +211,7 @@ class EventRepositoryTest {
     `when`(apiService.getEventDetail(event.id)).thenReturn(call)
 
     val errorResponseBody = ResponseBody.create(null, "")
-    val response = Response.error<EventApiResponse<Event>>(
-      404,
-      errorResponseBody
-    )
+    val response = Response.error<EventApiResponse<Event>>(404, errorResponseBody)
 
     `when`(call.execute()).thenReturn(response)
 
@@ -220,5 +220,4 @@ class EventRepositoryTest {
     assertEquals(false, result.isSuccessful)
     assertEquals("", result.errorBody()?.string())
   }
-
 }

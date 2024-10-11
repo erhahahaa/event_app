@@ -5,26 +5,27 @@ import dev.erhahahaa.eventapp.data.model.Event
 import dev.erhahahaa.eventapp.data.model.EventApiResponse
 import retrofit2.Call
 
+enum class EventStatus(val value: Int) {
+  ALL(-1),
+  ACTIVE(1),
+  FINISHED(0),
+}
+
 class EventRepository(apiService: ApiService) {
   private val api: ApiService = apiService
 
-  fun getAllEvents(): Call<EventApiResponse<List<Event>>> {
-    return api.getEvents(-1)
-  }
-
-  fun getActiveEvents(): Call<EventApiResponse<List<Event>>> {
-    return api.getEvents(1)
-  }
-
-  fun getFinishedEvents(): Call<EventApiResponse<List<Event>>> {
-    return api.getEvents(0)
+  fun getAllEvents(status: EventStatus): Call<EventApiResponse<List<Event>>> {
+    return api.getEvents(status.value)
   }
 
   fun getEventDetail(eventId: Int): Call<EventApiResponse<Event>> {
     return api.getEventDetail(eventId)
   }
 
-  fun searchEvents(query: String): Call<EventApiResponse<List<Event>>> {
-    return api.getEvents(-1, query)
+  fun searchEvents(
+    status: EventStatus = EventStatus.ALL,
+    query: String,
+  ): Call<EventApiResponse<List<Event>>> {
+    return api.getEvents(status.value, query)
   }
 }

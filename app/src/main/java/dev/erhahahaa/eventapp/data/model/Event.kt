@@ -1,9 +1,11 @@
 package dev.erhahahaa.eventapp.data.model
 
-
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
 @Serializable
+@Parcelize
 data class Event(
   val id: Int,
   val name: String,
@@ -19,4 +21,4 @@ data class Event(
   val beginTime: String?,
   val endTime: String?,
   val link: String?,
-)
+) : Parcelable

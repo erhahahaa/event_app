@@ -18,10 +18,11 @@ object ApiServiceFactory {
     val mediaType =
       MediaType.parse("application/json") ?: throw IllegalArgumentException("Invalid media type")
 
-    val retrofit = Retrofit.Builder()
-      .baseUrl(BASE_URL)
-      .addConverterFactory(json.asConverterFactory(mediaType))
-      .build()
+    val retrofit =
+      Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(json.asConverterFactory(mediaType))
+        .build()
 
     return retrofit.create(ApiService::class.java)
   }

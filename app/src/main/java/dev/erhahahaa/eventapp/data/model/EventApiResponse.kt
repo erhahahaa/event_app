@@ -7,5 +7,5 @@ data class EventApiResponse<T>(
   val error: Boolean,
   val message: String,
   val event: T? = null,
-  val listEvents: T? = null
+  val listEvents: T? = null,
 )

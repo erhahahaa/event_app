@@ -7,7 +7,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-
 interface ApiService {
   @GET("/events")
   fun getEvents(
@@ -16,6 +15,5 @@ interface ApiService {
     @Query("limit") limit: Int = 10,
   ): Call<EventApiResponse<List<Event>>>
 
-  @GET("/events/{id}")
-  fun getEventDetail(@Path("id") id: Int): Call<EventApiResponse<Event>>
+  @GET("/events/{id}") fun getEventDetail(@Path("id") id: Int): Call<EventApiResponse<Event>>
 }

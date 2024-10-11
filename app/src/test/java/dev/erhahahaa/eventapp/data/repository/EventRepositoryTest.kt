@@ -173,7 +173,7 @@ class EventRepositoryTest {
 
     `when`(call.execute()).thenReturn(response)
 
-    val result = repository.searchEvents(query).execute()
+    val result = repository.searchEvents(EventStatus.ALL, query).execute()
     assertEquals(true, result.isSuccessful)
     assertEquals(true, result.body()?.listEvents?.isNotEmpty())
 

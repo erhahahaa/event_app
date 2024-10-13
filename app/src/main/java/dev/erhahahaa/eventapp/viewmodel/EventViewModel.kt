@@ -1,20 +1,26 @@
 package dev.erhahahaa.eventapp.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import dev.erhahahaa.eventapp.data.model.Event
 import dev.erhahahaa.eventapp.data.model.EventApiResponse
 import dev.erhahahaa.eventapp.data.repository.EventRepository
 import dev.erhahahaa.eventapp.data.repository.EventStatus
 import dev.erhahahaa.eventapp.di.ApiServiceFactory
+import dev.erhahahaa.eventapp.di.FavoriteEventDaoFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class EventViewModel : ViewModel() {
+class EventViewModel(application: Application) : AndroidViewModel(application) {
 
-  private val eventRepository = EventRepository(ApiServiceFactory.create())
+  private val eventRepository =
+    EventRepository(
+      api = ApiServiceFactory.create(),
+      favoriteEventDao = FavoriteEventDaoFactory().create(context = getApplication()),
+    )
 
   private val _events = MutableLiveData<List<Event>?>()
   val events: LiveData<List<Event>?>

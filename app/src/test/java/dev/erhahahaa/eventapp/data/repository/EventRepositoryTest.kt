@@ -1,20 +1,26 @@
 package dev.erhahahaa.eventapp.data.repository
 
 import dev.erhahahaa.eventapp.data.api.ApiService
+import dev.erhahahaa.eventapp.data.dao.FavoriteEventDao
 import dev.erhahahaa.eventapp.data.model.Event
 import dev.erhahahaa.eventapp.data.model.EventApiResponse
+import dev.erhahahaa.eventapp.data.model.FavoriteEvent
+import kotlinx.coroutines.runBlocking
 import okhttp3.ResponseBody
+import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
+import org.mockito.kotlin.whenever
 import retrofit2.Call
 import retrofit2.Response
 
 class EventRepositoryTest {
 
-  private val apiService = mock(ApiService::class.java)
-  private val repository = EventRepository(apiService)
   private val event =
     Event(
       id = 8933,
@@ -36,6 +42,26 @@ class EventRepositoryTest {
       endTime = "2024-10-11 17:00:00",
       link = "https://www.dicoding.com/events/8933",
     )
+
+  private val favoriteEvent =
+    FavoriteEvent(
+      event.id,
+      event.name,
+      event.ownerName,
+      event.imageLogo,
+      event.mediaCover,
+      event.beginTime,
+    )
+  private lateinit var apiService: ApiService
+  private lateinit var favoriteEventDao: FavoriteEventDao
+  private lateinit var repository: EventRepository
+
+  @Before
+  fun setUp() {
+    apiService = mock(ApiService::class.java)
+    favoriteEventDao = mock(FavoriteEventDao::class.java)
+    repository = EventRepository(api = apiService, favoriteEventDao = favoriteEventDao)
+  }
 
   @Test
   fun testGetAllEventsReturnsEvents() {
@@ -219,5 +245,58 @@ class EventRepositoryTest {
 
     assertEquals(false, result.isSuccessful)
     assertEquals("", result.errorBody()?.string())
+  }
+
+  @Test
+  fun testSearchEventsReturnsError() {
+    val call = mock(Call::class.java) as Call<EventApiResponse<List<Event>>>
+    val query = "DevCoach"
+    `when`(apiService.getEvents(-1, query)).thenReturn(call)
+
+    val errorResponseBody = ResponseBody.create(null, "")
+    val response = Response.error<EventApiResponse<List<Event>>>(404, errorResponseBody)
+
+    `when`(call.execute()).thenReturn(response)
+
+    val result = repository.searchEvents(EventStatus.ALL, query).execute()
+
+    assertEquals(false, result.isSuccessful)
+    assertEquals("", result.errorBody()?.string())
+  }
+
+  @Test
+  fun testAddFavoriteEvent() = runBlocking {
+    whenever(favoriteEventDao.addFavorite(favoriteEvent))
+      .thenReturn(Unit)
+      .thenThrow(RuntimeException())
+
+    repository.addFavorite(favoriteEvent)
+
+    assertThrows<RuntimeException> { repository.addFavorite(favoriteEvent) }
+
+    verify(favoriteEventDao, times(2)).addFavorite(favoriteEvent)
+  }
+
+  @Test
+  fun testRemoveFavoriteEvent() = runBlocking {
+    whenever(favoriteEventDao.removeFavorite(favoriteEvent.eventId))
+      .thenReturn(Unit)
+      .thenThrow(RuntimeException())
+
+    repository.removeFavorite(favoriteEvent.eventId)
+
+    assertThrows<RuntimeException> { repository.removeFavorite(favoriteEvent.eventId) }
+
+    verify(favoriteEventDao, times(2)).removeFavorite(favoriteEvent.eventId)
+  }
+
+  @Test
+  fun testGetAllFavorites() = runBlocking {
+    val favorites = listOf(favoriteEvent)
+    whenever(favoriteEventDao.getAllFavorites()).thenReturn(favorites)
+
+    val result = repository.getAllFavorites()
+
+    assertEquals(favorites, result)
   }
 }

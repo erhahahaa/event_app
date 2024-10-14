@@ -24,6 +24,19 @@
         tools:layout="@layout/fragment_event_list" />
 
     <fragment
+        android:id="@+id/nav_favorite_events"
+        android:name="dev.erhahahaa.eventapp.ui.fragment.FavoriteEventFragment"
+        android:label="@string/favorite_events"
+        tools:layout="@layout/fragment_event_list" />
+
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="dev.erhahahaa.eventapp.ui.fragment.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
         android:id="@+id/event_detail_fragment"
         android:name="dev.erhahahaa.eventapp.ui.fragment.EventDetailFragment"
         android:label="@string/event_detail"
@@ -31,6 +44,8 @@
         <argument
             android:name="eventId"
             app:argType="integer" />
+
+
     </fragment>
 
 </navigation>

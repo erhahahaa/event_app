@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:title="Event Details"
+        android:title="@string/event_details"
         app:layout_scrollFlags="scroll|enterAlways"
         app:navigationIcon="@drawable/ic_back_arrow"
         app:titleTextColor="@android:color/black" />
@@ -109,8 +109,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/favorite"
+        android:focusable="true"
+        app:backgroundTint="@color/soft_purple"
+        app:srcCompat="@drawable/ic_favorite_outline" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -6,21 +6,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dev.erhahahaa.eventapp.data.model.Event
 import dev.erhahahaa.eventapp.data.model.EventApiResponse
+import dev.erhahahaa.eventapp.data.model.FavoriteEvent
 import dev.erhahahaa.eventapp.data.repository.EventRepository
 import dev.erhahahaa.eventapp.data.repository.EventStatus
 import dev.erhahahaa.eventapp.di.ApiServiceFactory
 import dev.erhahahaa.eventapp.di.FavoriteEventDaoFactory
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class EventViewModel(application: Application) : AndroidViewModel(application) {
-
-  private val eventRepository =
-    EventRepository(
-      api = ApiServiceFactory.create(),
-      favoriteEventDao = FavoriteEventDaoFactory().create(context = getApplication()),
-    )
+  private var eventRepository: EventRepository =
+    EventRepository(ApiServiceFactory.create(), FavoriteEventDaoFactory().create(application))
 
   private val _events = MutableLiveData<List<Event>?>()
   val events: LiveData<List<Event>?>
@@ -33,6 +31,10 @@ class EventViewModel(application: Application) : AndroidViewModel(application) {
   private val _finishedEvents = MutableLiveData<List<Event>?>()
   val finishedEvents: LiveData<List<Event>?>
     get() = _finishedEvents
+
+  private val _favoriteEvents = MutableLiveData<List<FavoriteEvent>>()
+  val favoriteEvents: LiveData<List<FavoriteEvent>>
+    get() = _favoriteEvents
 
   private val _detail = MutableLiveData<Event?>()
   val detail: MutableLiveData<Event?>
@@ -204,5 +206,45 @@ class EventViewModel(application: Application) : AndroidViewModel(application) {
           }
         }
       )
+  }
+
+  fun loadFavoriteEvents() = runBlocking {
+    _isLoading.postValue(true)
+    val events = eventRepository.getAllFavorites()
+
+    _favoriteEvents.postValue(events)
+    if (events.isEmpty()) {
+      _error.postValue("No events found")
+    }
+
+    _isLoading.postValue(false)
+  }
+
+  fun addFavorite(event: Event) = runBlocking {
+    eventRepository.addFavorite(
+      FavoriteEvent(
+        eventId = event.id,
+        name = event.name,
+        ownerName = event.ownerName,
+        mediaCover = event.mediaCover,
+        imageLogo = event.imageLogo,
+        beginTime = event.beginTime,
+      )
+    )
+  }
+
+  fun removeFavorite(eventId: Int) = runBlocking { eventRepository.removeFavorite(eventId) }
+
+  fun searchFavorite(name: String) = runBlocking {
+    val events = eventRepository.searchFavorite(name)
+    _favoriteEvents.postValue(events)
+    if (events.isEmpty()) {
+      _error.postValue("No events found")
+    }
+  }
+
+  fun isFavorite(eventId: Int): Boolean = runBlocking {
+    val event = eventRepository.getFavoriteById(eventId)
+    event != null
   }
 }

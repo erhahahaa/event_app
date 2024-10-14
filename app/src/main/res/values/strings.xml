@@ -15,4 +15,12 @@
     <string name="description">Description:</string>
     <string name="event_link">Event Link</string>
     <string name="event_detail">Event Detail</string>
+    <string name="favorite">Favorite</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="favorite_events">Favorite Events</string>
+    <string name="event_details">Event Details</string>
+    <string name="quota_estimation">Quota: %1$x</string>
+    <string name="toggle_theme">Toggle Theme</string>
+    <string name="settings">Settings</string>
 </resources>

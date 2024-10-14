@@ -5,27 +5,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import dev.erhahahaa.eventapp.data.model.Event
+import dev.erhahahaa.eventapp.data.model.FavoriteEvent
 import dev.erhahahaa.eventapp.databinding.HorizontalItemEventBinding
 import dev.erhahahaa.eventapp.databinding.VerticalItemEventBinding
-import dev.erhahahaa.eventapp.utils.EventDiffCallback
+import dev.erhahahaa.eventapp.utils.FavoriteEventDiffCallback
 
-enum class ViewDirection {
-  HORIZONTAL,
-  VERTICAL,
-}
-
-class EventAdapter(
+class FavoriteEventAdapter(
   private val onItemClick: (Int) -> Unit,
   private val direction: ViewDirection = ViewDirection.HORIZONTAL,
-) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
+) : RecyclerView.Adapter<FavoriteEventAdapter.EventViewHolder>() {
 
-  private var eventList: List<Event> = listOf()
+  private var eventList: List<FavoriteEvent> = listOf()
 
-  fun submitList(events: List<Event>?) {
+  fun submitList(events: List<FavoriteEvent>?) {
     if (events == null) return
 
-    val diffCallback = EventDiffCallback(eventList, events)
+    val diffCallback = FavoriteEventDiffCallback(eventList, events)
     val diffResult = DiffUtil.calculateDiff(diffCallback)
 
     eventList = events
@@ -54,7 +49,7 @@ class EventAdapter(
       (binding as? HorizontalItemEventBinding)?.root ?: (binding as VerticalItemEventBinding).root
     ) {
 
-    fun bind(event: Event, onItemClick: (Int) -> Unit) {
+    fun bind(event: FavoriteEvent, onItemClick: (Int) -> Unit) {
       when (direction) {
         ViewDirection.HORIZONTAL -> {
           val horizontalBinding = binding as HorizontalItemEventBinding
@@ -66,7 +61,7 @@ class EventAdapter(
             .load(event.mediaCover ?: event.imageLogo)
             .into(horizontalBinding.ivEventImage)
 
-          horizontalBinding.root.setOnClickListener { onItemClick(event.id) }
+          horizontalBinding.root.setOnClickListener { onItemClick(event.eventId) }
         }
         ViewDirection.VERTICAL -> {
           val verticalBinding = binding as VerticalItemEventBinding
@@ -76,7 +71,7 @@ class EventAdapter(
             .load(event.mediaCover ?: event.imageLogo)
             .into(verticalBinding.ivEventImage)
 
-          verticalBinding.root.setOnClickListener { onItemClick(event.id) }
+          verticalBinding.root.setOnClickListener { onItemClick(event.eventId) }
         }
       }
     }

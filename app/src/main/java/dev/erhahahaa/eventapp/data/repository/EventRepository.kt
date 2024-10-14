@@ -42,7 +42,12 @@ class EventRepository(private val api: ApiService, private val favoriteEventDao:
     return favoriteEventDao.getAllFavorites()
   }
 
-  suspend fun clearFavorites() {
-    favoriteEventDao.clearFavorites()
+  suspend fun searchFavorite(name: String): List<FavoriteEvent> {
+    return favoriteEventDao.searchFavorite(name)
+  }
+
+  suspend fun getFavoriteById(eventId: Int): FavoriteEvent? {
+    val events = favoriteEventDao.getFavoriteById(eventId)
+    return if (events.isNotEmpty()) events[0] else null
   }
 }

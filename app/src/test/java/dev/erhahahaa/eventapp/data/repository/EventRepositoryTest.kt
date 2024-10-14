@@ -299,4 +299,34 @@ class EventRepositoryTest {
 
     assertEquals(favorites, result)
   }
+
+  @Test
+  fun testSearchFavorite() = runBlocking {
+    val favorites = listOf(favoriteEvent)
+    val query = "DevCoach"
+    whenever(favoriteEventDao.searchFavorite(query)).thenReturn(favorites)
+
+    val result = repository.searchFavorite(query)
+
+    assertEquals(favorites, result)
+  }
+
+  @Test
+  fun testGetFavoriteById() = runBlocking {
+    val favorites = listOf(favoriteEvent)
+    whenever(favoriteEventDao.getFavoriteById(favoriteEvent.eventId)).thenReturn(favorites)
+
+    val result = repository.getFavoriteById(favoriteEvent.eventId)
+
+    assertEquals(favoriteEvent, result)
+  }
+
+  @Test
+  fun testGetFavoriteByIdReturnsNull() = runBlocking {
+    whenever(favoriteEventDao.getFavoriteById(favoriteEvent.eventId)).thenReturn(emptyList())
+
+    val result = repository.getFavoriteById(favoriteEvent.eventId)
+
+    assertEquals(null, result)
+  }
 }

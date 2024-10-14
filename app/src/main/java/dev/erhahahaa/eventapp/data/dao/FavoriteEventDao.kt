@@ -16,4 +16,10 @@ interface FavoriteEventDao {
   @Query("SELECT * FROM favorite_events") suspend fun getAllFavorites(): List<FavoriteEvent>
 
   @Query("DELETE FROM favorite_events") suspend fun clearFavorites()
+
+  @Query("SELECT * FROM favorite_events WHERE name LIKE '%' || :name || '%'")
+  suspend fun searchFavorite(name: String): List<FavoriteEvent>
+
+  @Query("SELECT * FROM favorite_events WHERE eventId = :eventId")
+  suspend fun getFavoriteById(eventId: Int): List<FavoriteEvent>
 }

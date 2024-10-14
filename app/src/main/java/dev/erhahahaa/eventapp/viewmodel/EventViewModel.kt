@@ -44,8 +44,8 @@ class EventViewModel(application: Application) : AndroidViewModel(application) {
   val isLoading: LiveData<Boolean>
     get() = _isLoading
 
-  private val _error = MutableLiveData<String>()
-  val error: LiveData<String>
+  private val _error = MutableLiveData<String?>()
+  val error: LiveData<String?>
     get() = _error
 
   fun loadActiveEvents() {
@@ -62,7 +62,7 @@ class EventViewModel(application: Application) : AndroidViewModel(application) {
             if (response.isSuccessful) {
               val events = response.body()?.listEvents
               _activeEvents.postValue(events)
-              if (events.isNullOrEmpty()) {
+              if (events.isNullOrEmpty() && error.value == null) {
                 _error.postValue("No events found")
               }
             } else {
@@ -94,7 +94,7 @@ class EventViewModel(application: Application) : AndroidViewModel(application) {
             if (response.isSuccessful) {
               val events = response.body()?.listEvents
               _finishedEvents.postValue(events)
-              if (events.isNullOrEmpty()) {
+              if (events.isNullOrEmpty() && error.value == null) {
                 _error.postValue("No events found")
               }
             } else {
@@ -126,7 +126,7 @@ class EventViewModel(application: Application) : AndroidViewModel(application) {
             if (response.isSuccessful) {
               val event = response.body()?.event
               _detail.postValue(event)
-              if (event == null) {
+              if (event == null && error.value == null) {
                 _error.postValue("No event found")
               }
             } else {
@@ -158,7 +158,7 @@ class EventViewModel(application: Application) : AndroidViewModel(application) {
             if (response.isSuccessful) {
               val events = response.body()?.listEvents
               _activeEvents.postValue(events)
-              if (events.isNullOrEmpty()) {
+              if (events.isNullOrEmpty() && error.value == null) {
                 _error.postValue("No events found")
               }
             } else {
@@ -190,7 +190,7 @@ class EventViewModel(application: Application) : AndroidViewModel(application) {
             if (response.isSuccessful) {
               val events = response.body()?.listEvents
               _finishedEvents.postValue(events)
-              if (events.isNullOrEmpty()) {
+              if (events.isNullOrEmpty() && error.value == null) {
                 _error.postValue("No events found")
               }
             } else {
@@ -213,7 +213,7 @@ class EventViewModel(application: Application) : AndroidViewModel(application) {
     val events = eventRepository.getAllFavorites()
 
     _favoriteEvents.postValue(events)
-    if (events.isEmpty()) {
+    if (events.isEmpty() && error.value == null) {
       _error.postValue("No events found")
     }
 
@@ -236,15 +236,21 @@ class EventViewModel(application: Application) : AndroidViewModel(application) {
   fun removeFavorite(eventId: Int) = runBlocking { eventRepository.removeFavorite(eventId) }
 
   fun searchFavorite(name: String) = runBlocking {
+    _isLoading.postValue(true)
     val events = eventRepository.searchFavorite(name)
     _favoriteEvents.postValue(events)
-    if (events.isEmpty()) {
+    if (events.isEmpty() && error.value == null) {
       _error.postValue("No events found")
     }
+    _isLoading.postValue(false)
   }
 
   fun isFavorite(eventId: Int): Boolean = runBlocking {
     val event = eventRepository.getFavoriteById(eventId)
     event != null
+  }
+
+  fun clearError() {
+    _error.value = null
   }
 }

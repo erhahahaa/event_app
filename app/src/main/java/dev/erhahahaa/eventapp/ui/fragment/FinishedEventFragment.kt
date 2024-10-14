@@ -64,17 +64,16 @@ class FinishedEventFragment : Fragment() {
     eventViewModel.error.observe(viewLifecycleOwner) { error ->
       if (error != null) {
         Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+        eventViewModel.clearError()
       }
     }
-
-    eventViewModel.loadFinishedEvents()
 
     val debounce = Debounce(1000L)
 
     binding.searchView.setOnQueryTextListener(
       object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
-          if (query != null) {
+          if (!query.isNullOrEmpty()) {
             eventViewModel.searchFinishedEvents(query)
           } else {
             eventViewModel.loadActiveEvents()
@@ -92,6 +91,8 @@ class FinishedEventFragment : Fragment() {
         }
       }
     )
+
+    eventViewModel.loadFinishedEvents()
   }
 
   override fun onDestroyView() {

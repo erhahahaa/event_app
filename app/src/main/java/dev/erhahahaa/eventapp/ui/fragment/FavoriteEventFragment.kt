@@ -64,17 +64,16 @@ class FavoriteEventFragment : Fragment() {
     eventViewModel.error.observe(viewLifecycleOwner) { error ->
       if (error != null) {
         Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+        eventViewModel.clearError()
       }
     }
-
-    eventViewModel.loadFavoriteEvents()
 
     val debounce = Debounce(1000L)
 
     binding.searchView.setOnQueryTextListener(
       object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
-          if (query != null) {
+          if (!query.isNullOrEmpty()) {
             eventViewModel.searchFavorite(query)
           } else {
             eventViewModel.loadFavoriteEvents()
@@ -92,6 +91,8 @@ class FavoriteEventFragment : Fragment() {
         }
       }
     )
+
+    eventViewModel.loadFavoriteEvents()
   }
 
   override fun onDestroyView() {

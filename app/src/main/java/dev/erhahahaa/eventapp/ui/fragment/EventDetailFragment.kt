@@ -93,6 +93,13 @@ class EventDetailFragment : Fragment() {
       binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
+    eventViewModel.error.observe(viewLifecycleOwner) { error ->
+      if (error != null) {
+        Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+        eventViewModel.clearError()
+      }
+    }
+
     eventViewModel.getEventDetail(eventId)
   }
 

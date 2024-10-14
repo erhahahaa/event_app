@@ -18,9 +18,10 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:contentDescription="@string/settings"
-            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="@string/settings" />
+            app:title="@string/settings"
+            app:titleTextColor="?android:textColorPrimary" />
 
         <TextView
             android:id="@+id/toggle_theme_text"

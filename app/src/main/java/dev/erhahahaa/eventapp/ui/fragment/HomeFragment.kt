@@ -73,7 +73,10 @@ class HomeFragment : Fragment() {
     }
 
     eventViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-      binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+      binding.rvUpcomingEvents.visibility = if (isLoading) View.GONE else View.VISIBLE
+      binding.rvFinishedEvents.visibility = if (isLoading) View.GONE else View.VISIBLE
+      binding.progressBarUpcomingEvents.visibility = if (isLoading) View.VISIBLE else View.GONE
+      binding.progressBarFinishedEvents.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     eventViewModel.error.observe(viewLifecycleOwner) { error ->

@@ -52,8 +52,8 @@ class EventDetailFragment : Fragment() {
 
         binding.toolbar.title = it.name
         binding.tvEventName.text = it.name
-        binding.tvEventOwner.text = it.ownerName
-        binding.tvEventTime.text = it.beginTime
+        binding.tvEventOwner.text = getString(R.string.event_owner, it.ownerName)
+        binding.tvEventTime.text = getString(R.string.time, it.beginTime, it.endTime)
         val quota = it.quota - (it.registrants ?: 0)
         binding.tvEventQuota.text = getString(R.string.quota_estimation, quota)
         binding.tvEventDescription.text =
@@ -90,6 +90,8 @@ class EventDetailFragment : Fragment() {
     }
 
     eventViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+      binding.btnFavorite.visibility = if (isLoading) View.GONE else View.VISIBLE
+      binding.btnEventLink.visibility = if (isLoading) View.GONE else View.VISIBLE
       binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 

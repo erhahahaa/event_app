@@ -12,10 +12,11 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:contentDescription="@string/event_details"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+        android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
         android:title="@string/event_details"
         app:layout_scrollFlags="scroll|enterAlways"
-        app:navigationIcon="@drawable/ic_back_arrow" />
+        app:navigationIcon="@drawable/ic_back_arrow"
+        app:titleTextColor="?android:textColorPrimary" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -54,8 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:contentDescription="@string/organizer"
-                android:text="@string/organizer"
+                android:contentDescription="@string/event_owner"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/time"
-                android:text="@string/time"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +78,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/quota"
-                android:text="@string/quota"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +89,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/description"
-                android:text="@string/description"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -104,6 +101,7 @@
                 android:layout_marginTop="16dp"
                 android:contentDescription="@string/event_link"
                 android:text="@string/event_link"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvEventDescription" />
@@ -132,6 +130,7 @@
         android:clickable="true"
         android:contentDescription="@string/favorite"
         android:focusable="true"
+        android:visibility="gone"
         app:backgroundTint="@color/soft_purple"
         app:srcCompat="@drawable/ic_favorite_outline" />
 

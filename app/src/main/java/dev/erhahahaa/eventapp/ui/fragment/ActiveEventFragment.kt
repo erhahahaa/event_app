@@ -57,6 +57,7 @@ class ActiveEventFragment : Fragment() {
     }
 
     eventViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+      binding.rvEvent.visibility = if (isLoading) View.GONE else View.VISIBLE
       binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 

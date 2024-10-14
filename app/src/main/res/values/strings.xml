@@ -9,8 +9,7 @@
     <string name="upcoming">Upcoming</string>
     <string name="finished">Finished</string>
     <string name="event_image">Event Image</string>
-    <string name="organizer">Organizer:</string>
-    <string name="time">Time:</string>
+    <string name="time">Time: %1$s - %2$s</string>
     <string name="quota">Quota:</string>
     <string name="description">Description:</string>
     <string name="event_link">Event Link</string>
@@ -28,5 +27,6 @@
     <string name="bottom_navigation">Bottom Navigation</string>
     <string name="event_name">Event Name</string>
     <string name="loading">Loading</string>
-    <string name="search_events">Search events...</string>
+    <string name="search_events">Search events…</string>
+    <string name="event_owner">Event Owner: %1$s</string>
 </resources>

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/navHome"
         android:icon="@drawable/ic_home"
         android:title="@string/home" />
     <item
-        android:id="@+id/nav_active_events"
+        android:id="@+id/navActiveEvents"
         android:icon="@drawable/ic_event"
         android:title="@string/upcoming" />
     <item
-        android:id="@+id/nav_finished_events"
+        android:id="@+id/navFinishedEvents"
         android:icon="@drawable/ic_done"
         android:title="@string/finished" />
     <item
-        android:id="@+id/nav_favorite_events"
+        android:id="@+id/navFavoriteEvents"
         android:icon="@drawable/ic_favorite_filled"
         android:title="@string/favorite" />
     <item
-        android:id="@+id/nav_settings"
+        android:id="@+id/navSettings"
         android:icon="@drawable/ic_settings"
         android:title="@string/settings" />
 </menu>

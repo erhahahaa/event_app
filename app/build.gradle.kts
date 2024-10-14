@@ -69,6 +69,7 @@ dependencies {
   implementation(libs.androidx.lifecycle.livedata.ktx)
   implementation(libs.kotlinx.coroutines.core)
   implementation(libs.kotlinx.coroutines.android)
+  implementation(libs.androidx.work.runtime)
 
   testImplementation(libs.mockito.core)
   testImplementation(libs.mockito.kotlin)

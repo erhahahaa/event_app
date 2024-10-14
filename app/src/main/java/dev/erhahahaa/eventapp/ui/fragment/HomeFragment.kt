@@ -36,14 +36,13 @@ class HomeFragment : Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
     eventViewModel = ViewModelProvider(this)[EventViewModel::class.java]
 
     upcomingEventAdapter =
       EventAdapter(
         onItemClick = { eventId ->
           val bundle = Bundle().apply { putInt("eventId", eventId) }
-          findNavController().navigate(R.id.event_detail_fragment, bundle)
+          findNavController().navigate(R.id.eventDetailFragment, bundle)
         },
         direction = ViewDirection.VERTICAL,
       )
@@ -51,7 +50,7 @@ class HomeFragment : Fragment() {
       EventAdapter(
         onItemClick = { eventId ->
           val bundle = Bundle().apply { putInt("eventId", eventId) }
-          findNavController().navigate(R.id.event_detail_fragment, bundle)
+          findNavController().navigate(R.id.eventDetailFragment, bundle)
         }
       )
 
@@ -83,7 +82,6 @@ class HomeFragment : Fragment() {
         eventViewModel.clearError()
       }
     }
-
     eventViewModel.loadActiveEvents()
     eventViewModel.loadFinishedEvents()
   }

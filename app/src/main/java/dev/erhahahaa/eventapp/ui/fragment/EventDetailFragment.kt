@@ -54,8 +54,8 @@ class EventDetailFragment : Fragment() {
         binding.tvEventName.text = it.name
         binding.tvEventOwner.text = it.ownerName
         binding.tvEventTime.text = it.beginTime
-        binding.tvEventQuota.text =
-          getString(R.string.quota_estimation, it.quota - (it.registrants ?: 0))
+        val quota = it.quota - (it.registrants ?: 0)
+        binding.tvEventQuota.text = getString(R.string.quota_estimation, quota)
         binding.tvEventDescription.text =
           HtmlCompat.fromHtml(it.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
 

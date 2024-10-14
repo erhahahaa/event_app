@@ -20,6 +20,7 @@
         android:id="@+id/tv_event_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/event_name"
         android:textSize="16sp"
         app:layout_constraintLeft_toRightOf="@id/iv_event_image"
         app:layout_constraintRight_toRightOf="parent"
@@ -29,6 +30,7 @@
         android:id="@+id/tv_event_owner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/organizer"
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="@+id/tv_event_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_event_name" />
@@ -37,6 +39,7 @@
         android:id="@+id/tv_event_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/time"
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="@+id/tv_event_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_event_owner" />

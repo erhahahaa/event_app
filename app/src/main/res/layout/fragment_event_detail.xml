@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.EventDetailFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
+        android:contentDescription="@string/event_details"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
         android:title="@string/event_details"
         app:layout_scrollFlags="scroll|enterAlways"
-        app:navigationIcon="@drawable/ic_back_arrow"
-        app:titleTextColor="@android:color/black" />
+        app:navigationIcon="@drawable/ic_back_arrow" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -39,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:contentDescription="@string/event_name"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -50,6 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:contentDescription="@string/organizer"
                 android:text="@string/organizer"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -61,6 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:contentDescription="@string/time"
                 android:text="@string/time"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,6 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:contentDescription="@string/quota"
                 android:text="@string/quota"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -83,6 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:contentDescription="@string/description"
                 android:text="@string/description"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -94,6 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:contentDescription="@string/event_link"
                 android:text="@string/event_link"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -103,6 +112,7 @@
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/loading"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

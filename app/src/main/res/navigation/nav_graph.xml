@@ -3,49 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nav_home">
+    app:startDestination="@id/navHome">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/navHome"
         android:name="dev.erhahahaa.eventapp.ui.fragment.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_active_events"
+        android:id="@+id/navActiveEvents"
         android:name="dev.erhahahaa.eventapp.ui.fragment.ActiveEventFragment"
-        android:label="Active Events"
+        android:label="@string/upcoming_events"
         tools:layout="@layout/fragment_event_list" />
 
     <fragment
-        android:id="@+id/nav_finished_events"
+        android:id="@+id/navFinishedEvents"
         android:name="dev.erhahahaa.eventapp.ui.fragment.FinishedEventFragment"
         android:label="@string/finished_events"
         tools:layout="@layout/fragment_event_list" />
 
     <fragment
-        android:id="@+id/nav_favorite_events"
+        android:id="@+id/navFavoriteEvents"
         android:name="dev.erhahahaa.eventapp.ui.fragment.FavoriteEventFragment"
         android:label="@string/favorite_events"
         tools:layout="@layout/fragment_event_list" />
 
 
     <fragment
-        android:id="@+id/nav_settings"
+        android:id="@+id/navSettings"
         android:name="dev.erhahahaa.eventapp.ui.fragment.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
-        android:id="@+id/event_detail_fragment"
+        android:id="@+id/eventDetailFragment"
         android:name="dev.erhahahaa.eventapp.ui.fragment.EventDetailFragment"
         android:label="@string/event_detail"
         tools:layout="@layout/fragment_event_detail">
         <argument
             android:name="eventId"
             app:argType="integer" />
-
-
     </fragment>
 
 </navigation>

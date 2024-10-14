@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -44,7 +44,7 @@ class FinishedEventFragment : Fragment() {
       EventAdapter(
         onItemClick = { eventId ->
           val bundle = Bundle().apply { putInt("eventId", eventId) }
-          findNavController().navigate(R.id.event_detail_fragment, bundle)
+          findNavController().navigate(R.id.eventDetailFragment, bundle)
         }
       )
 
@@ -68,7 +68,7 @@ class FinishedEventFragment : Fragment() {
       }
     }
 
-    val debounce = Debounce(1000L)
+    val debounce = Debounce(300L)
 
     binding.searchView.setOnQueryTextListener(
       object : SearchView.OnQueryTextListener {
